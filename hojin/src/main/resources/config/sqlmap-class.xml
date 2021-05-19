@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hojinClass.dao.classDAOImpl">
+	
+	<select id="mainFavClass" resultType="ClassVO">
+		select * from ( select title,curr1img from class order by cnt ) <![CDATA[ where rownum <=3]]>
+	</select>
+	<select id="mainAllClass" resultType="ClassVO">
+		select * from ( select title,curr1img from class order by cls_date ) <![CDATA[ where rownum <=3]]>
+	</select>
+	<select id="listFavClass" resultType="ClassVO">
+		SELECT TITLE,CURR1IMG FROM CLASS ORDER BY CNT DESC
+	</select>
+	<select id="listAllClass" resultType="ClassVO">
+		SELECT TITLE,CURR1IMG FROM CLASS ORDER BY CLS_DATE DESC
+	</select>
+	<select id="selectOneClass" parameterType="String" resultType="ClassVO">
+		SELECT * FROM CLASS WHERE TITLE=#{title,jdbcType=VARCHAR}
+	</select>
+	<update id="addCnt" parameterType="String">
+		UPDATE CLASS SET CNT = CNT + 1 WHERE TITLE = #{title,jdbcType=VARCHAR}
+	</update>
+</mapper>
